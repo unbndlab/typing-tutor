@@ -1,0 +1,510 @@
+/* --- General --- */
+:root {
+    --primary-bg: #f4f4f4;
+    --secondary-bg: #e0e0e0;
+    --text-color: #333;
+    --highlight-bg: #d0d0d0;
+    --correct-color: #4CAF50;
+    --incorrect-color: #F44336;
+    --incorrect-bg: #ffcdd2;
+    --border-color: #ccc;
+    --header-bg: #007bff;
+    --header-text: #fff;
+    --button-bg: #007bff;
+    --button-text: #fff;
+    --button-hover-bg: #0056b3;
+    --disabled-opacity: 0.6;
+    --base-font-size: 16px;
+    --monospace-font: 'Courier New', Courier, monospace;
+    --ui-font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    font-family: var(--ui-font);
+    font-size: var(--base-font-size);
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- Dark Theme --- */
+body.theme-dark {
+    --primary-bg: #2d2d2d;
+    --secondary-bg: #424242;
+    --text-color: #e0e0e0;
+    --highlight-bg: #555;
+    --correct-color: #81C784; /* Lighter green */
+    --incorrect-color: #e57373; /* Lighter red */
+    --incorrect-bg: #5f3033; /* Darker red background */
+    --border-color: #555;
+    --header-bg: #1976D2; /* Slightly different blue */
+    --header-text: #fff;
+    --button-bg: #1976D2;
+    --button-hover-bg: #1565C0;
+}
+body.theme-dark select, body.theme-dark input {
+     background-color: var(--secondary-bg);
+     color: var(--text-color);
+     border-color: var(--border-color);
+}
+body.theme-dark .results {
+    background-color: var(--secondary-bg);
+    border-color: var(--border-color);
+}
+body.theme-dark #results-table-container table th {
+     background-color: #555;
+}
+body.theme-dark #results-table-container table tr:nth-child(even) {
+     background-color: #3a3a3a;
+}
+body.theme-dark #results-table-container table tr:hover {
+    background-color: #505050;
+}
+body.theme-dark .keyboard .key {
+    background-color: #505050;
+    border-color: #666;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+body.theme-dark .keyboard .key.lit {
+    background-color: #777;
+}
+body.theme-dark .keyboard .key.pressed {
+     background-color: var(--highlight-bg);
+}
+body.theme-dark #text-display-container {
+    background-color: #3a3a3a; /* Darker background for text */
+    color: var(--text-color);
+     border-color: #555;
+}
+body.theme-dark .chart-container {
+     background-color: var(--secondary-bg);
+}
+body.theme-dark .setting-item {
+    background-color: var(--secondary-bg);
+}
+body.theme-dark .main-footer {
+    color: #aaa;
+}
+body.theme-dark .metrics, body.theme-dark .options-container {
+     background-color: var(--secondary-bg);
+}
+
+/* --- Layout & Sections --- */
+.main-header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-wrap: wrap; /* Allow wrap on small screens */
+}
+.main-header h1 {
+    margin: 0 0 5px 0; /* Space below title */
+    font-size: 1.5em;
+    flex-basis: 100%; /* Take full width on first line */
+    text-align: center; /* Center title */
+}
+.main-header nav {
+    display: flex;
+    justify-content: center; /* Center nav buttons */
+    flex-basis: 100%; /* Take full width */
+    gap: 10px;
+}
+.main-header nav button {
+    background: none;
+    border: none;
+    color: var(--header-text);
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.main-header nav button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.main-header nav button.active {
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+#app-container {
+    flex-grow: 1;
+    display: flex; /* Only one section visible at a time */
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.app-section {
+    display: none; /* Hide sections by default */
+    width: 100%;
+    max-width: 900px; /* Max width for content */
+    flex-direction: column;
+    align-items: center;
+}
+.app-section.active-section {
+    display: flex; /* Show the active section */
+}
+
+/* --- Options & Metrics (Game Section) --- */
+.options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 25px; /* Row and column gap */
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--secondary-bg);
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.option-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.option-group label {
+    font-weight: bold;
+    color: var(--text-color);
+}
+.option-group select {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--primary-bg); /* Match body bg */
+    color: var(--text-color);
+    font-size: 0.95em;
+}
+
+.metrics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 1.1em; /* Slightly smaller if needed */
+    background-color: var(--secondary-bg);
+    padding: 12px;
+    border-radius: 5px;
+    gap: 15px;
+    box-sizing: border-box;
+}
+.metrics div {
+    min-width: 80px; /* Ensure items don't get too squished */
+    text-align: center;
+    padding: 5px;
+}
+.metrics span {
+    font-weight: bold;
+}
+.mode-info {
+    font-style: italic;
+    /* color handled by theme */
+    flex-basis: 100%; /* Make it take full width when wrapping */
+    text-align: center; /* Center it when wrapped */
+    margin-top: 5px; /* Add space when wrapped */
+}
+
+
+/* --- Text Display --- */
+#text-display-container {
+    width: 100%;
+    background-color: #fff; /* White background usually best for readability */
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    line-height: 1.9;
+    font-size: 1.6em; /* Larger font for typing */
+    font-family: var(--monospace-font);
+    box-sizing: border-box;
+    position: relative; /* For game-over overlay */
+    min-height: 100px; /* Prevent collapse when empty/loading */
+    color: #333; /* Ensure good contrast on white bg */
+}
+
+#text-display-container.game-over {
+    opacity: var(--disabled-opacity);
+}
+#text-display-container.game-over .current {
+    background-color: transparent !important;
+    border: none !important;
+    animation: none; /* Stop blinking */
+}
+#text-display-container.game-over .current::after {
+    content: none; /* Remove cursor */
+}
+
+#text-to-type span {
+    padding: 1px 0;
+    border-radius: 2px;
+    transition: background-color 0.1s ease, color 0.1s ease; /* Smooth feedback */
+}
+.correct {
+    color: var(--correct-color);
+}
+.incorrect {
+    color: var(--incorrect-color);
+    background-color: var(--incorrect-bg);
+    text-decoration: underline;
+    text-decoration-color: var(--incorrect-color);
+    text-decoration-thickness: 1px;
+}
+.current {
+    background-color: var(--highlight-bg);
+    position: relative; /* Needed for pseudo-element cursor */
+}
+.current::after { /* Blinking cursor */
+    content: '|';
+    animation: blink 1s step-end infinite;
+    margin-left: -1px;
+    font-weight: bold;
+    color: var(--text-color);
+    position: absolute; /* Fine-tune position */
+    left: 0;
+    bottom: 0;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- Visual Keyboard --- */
+.keyboard {
+    margin-top: 20px;
+    background-color: var(--secondary-bg);
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Space between rows */
+    width: 100%;
+    max-width: 800px; /* Limit keyboard width */
+    box-sizing: border-box;
+}
+.keyboard .row {
+    display: flex;
+    justify-content: center;
+    gap: 6px; /* Space between keys */
+}
+.keyboard .key {
+    display: inline-flex; /* Use flex for centering content */
+    justify-content: center;
+    align-items: center;
+    min-width: 40px; /* Base key width */
+    height: 40px;
+    border: 1px solid var(--border-color);
+    background-color: var(--primary-bg);
+    border-radius: 4px;
+    font-family: var(--ui-font); /* Use UI font for keys */
+    font-size: 0.9em;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    transition: background-color 0.1s ease, transform 0.1s ease;
+    color: var(--text-color);
+    padding: 0 5px; /* Padding for slightly wider keys */
+    box-sizing: border-box; /* Include padding/border in width */
+    text-transform: none; /* Use case from layout */
+    user-select: none; /* Prevent text selection */
+}
+.keyboard .key[data-key=" "] { /* Spacebar */
+    min-width: 250px;
+    font-size: 0.8em;
+}
+.keyboard .key.shift, .keyboard .key.caps, .keyboard .key.tab,
+.keyboard .key.enter, .keyboard .key.backspace {
+    min-width: 60px; /* Wider special keys */
+    font-size: 0.8em;
+}
+.keyboard .key.lit { /* Highlight expected key */
+    background-color: #a0a0a0; /* Adjust highlight */
+    transform: scale(1.05);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+.keyboard .key.lit.error {
+    background-color: var(--incorrect-bg);
+    color: var(--incorrect-color);
+    border-color: var(--incorrect-color);
+}
+.keyboard .key.pressed { /* Indicate pressed key */
+    background-color: var(--highlight-bg);
+    transform: scale(0.95);
+}
+
+/* --- Results Display --- */
+.results {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px dashed var(--border-color);
+    background-color: var(--secondary-bg);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.results h2 { margin-top: 0; }
+.results div { margin: 8px 0; font-size: 1.2em; }
+.results span { font-weight: bold; }
+.results button { margin-top: 15px; }
+
+
+/* --- Buttons --- */
+.control-button, .results button, #start-next-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border-radius: 5px;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+.control-button:hover, .results button:hover, #start-next-button:hover {
+    background-color: var(--button-hover-bg);
+}
+.control-button:disabled, .results button:disabled, #start-next-button:disabled {
+    background-color: var(--button-bg); /* Keep color */
+    opacity: var(--disabled-opacity);
+    cursor: not-allowed;
+}
+#reset-button { margin-top: 15px; }
+
+
+/* --- Dashboard --- */
+#dashboard { gap: 20px; }
+.dashboard-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.chart-container {
+    width: 100%;
+    max-width: 700px;
+    height: 350px; /* Fixed height for chart */
+    background-color: #fff; /* White background for chart */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    position: relative; /* Needed for Chart.js responsiveness */
+}
+
+#results-table-container {
+    width: 100%;
+    max-width: 800px;
+    max-height: 400px; /* Limit height and make scrollable */
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+#results-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+#results-table-container th, #results-table-container td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+#results-table-container th {
+    background-color: var(--secondary-bg);
+    font-weight: bold;
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 1; /* Ensure header stays above scrolling content */
+}
+#results-table-container tr:nth-child(even) {
+    background-color: #e9e9e9; /* Zebra striping */
+}
+#results-table-container tr:hover {
+    background-color: #dcdcdc;
+}
+
+
+/* --- Settings --- */
+#settings { gap: 25px; padding-top: 20px;}
+.setting-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--secondary-bg);
+    padding: 15px 20px;
+    border-radius: 5px;
+    min-width: 300px;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+.setting-item label:first-child { /* Target the text label */
+    font-weight: bold;
+}
+
+/* Simple Toggle Switch CSS */
+.switch { position: relative; display: inline-block; width: 50px; height: 24px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; }
+input:checked + .slider { background-color: var(--button-bg); }
+input:focus + .slider { box-shadow: 0 0 1px var(--button-bg); }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider.round { border-radius: 24px; }
+.slider.round:before { border-radius: 50%; }
+
+
+/* --- Footer --- */
+.main-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
+    font-size: 0.9em;
+    color: #777;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .main-header { flex-direction: column; gap: 10px; }
+    .main-header h1 { font-size: 1.4em; }
+    .main-header nav { gap: 5px;}
+    .main-header nav button { font-size: 0.9em; padding: 6px 10px;}
+
+    .options-container { justify-content: flex-start; } /* Align left on small screens */
+    .metrics { font-size: 1em; gap: 10px; }
+    #text-display-container { font-size: 1.4em; padding: 15px; }
+    .keyboard .key { min-width: 30px; height: 35px; font-size: 0.8em; }
+    .keyboard .key[data-key=" "] { min-width: 180px; }
+    .keyboard .key.shift, .keyboard .key.caps, .keyboard .key.tab,
+    .keyboard .key.enter, .keyboard .key.backspace { min-width: 45px; }
+    #results-table-container { font-size: 0.8em; }
+    #results-table-container th, #results-table-container td { padding: 6px 8px; }
+    .chart-container { height: 300px; }
+}
+
+@media (max-width: 480px) {
+    #app-container { padding: 10px; }
+    .metrics div { min-width: 60px; }
+    #text-display-container { font-size: 1.2em; }
+    .keyboard { padding: 10px; gap: 5px; }
+    .keyboard .row { gap: 4px; }
+    .keyboard .key { min-width: calc((100% / 15) - 4px); /* Dynamic key width approx */ height: 35px; padding: 0 2px; font-size: 0.7em;} /* Smaller keys */
+    .keyboard .key[data-key=" "] { min-width: 150px; }
+     .keyboard .key.shift, .keyboard .key.caps, .keyboard .key.tab,
+    .keyboard .key.enter, .keyboard .key.backspace { min-width: 35px; font-size: 0.7em; }
+    .results div { font-size: 1.1em; }
+    .setting-item { flex-direction: column; align-items: flex-start; gap: 10px; width: 90%; }
+}

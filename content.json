@@ -1,0 +1,20 @@
+{
+  "lessons": [
+    { "guid": "l001", "title": "Home Row Basics (asdf)", "focusKeys": "asdf", "sequence": 1, "category": "beginner", "text": "add adds a sad fad; sad dad adds; a lass; a salad; adds a fad; sad lass; ask a sad dad; a flask; fad adds;" },
+    { "guid": "l002", "title": "Home Row Basics (jkl;)", "focusKeys": "jkl;", "sequence": 2, "category": "beginner", "text": "ask; all fall; ask a lad; a flask; all lads fall; a sad fall; ask all lads; fad; add; a sad lad asks;" },
+    { "guid": "l003", "title": "Home Row Combined", "focusKeys": "asdfjkl;", "sequence": 3, "category": "beginner", "text": "sad flask; ask a sad lass; all sad lads fall; a dad asks; a flask falls; add a salad; a fad; ask all; fall;" },
+    { "guid": "l004", "title": "E and I Keys", "focusKeys": "ei", "sequence": 4, "category": "beginner", "text": "feed; seed; life; lie; sea; desk; like; ski; file; if; kid; ill; sell; feel; see; aid; ski; tie; die; lid;" },
+    { "guid": "l005", "title": "R and U Keys", "focusKeys": "ru", "sequence": 5, "category": "beginner", "text": "fur; run; sure; rush; use; due; sue; jar; dark; fur; lure; true; rule; just; four; our; air; red; dress; rude;" }
+  ],
+  "tests": [
+    { "guid": "t001", "title": "Common Words (Easy)", "category": "words", "difficulty": "easy", "wordCount": 25, "textSource": "common_words_easy" },
+    { "guid": "t002", "title": "Common Words (Medium)", "category": "words", "difficulty": "medium", "wordCount": 50, "textSource": "common_words_medium" },
+    { "guid": "t003", "title": "Timed Test (1 Minute)", "category": "time", "duration": 60, "textSource": "common_words_medium" },
+    { "guid": "t004", "title": "Code Snippet (JS)", "category": "code", "text": "function greet(name) { console.log(`Hello, ${name}!`); } const user = 'World'; greet(user); let count = 0; while (count < 5) { count++; }" },
+    { "guid": "t005", "title": "Quote Test", "category": "quote", "text": "The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. Practice makes perfect." }
+  ],
+  "wordLists": {
+      "common_words_easy": "the of and a to in is you that it he was for on are as with his they I at be this have from or one had by word but not what all were we when your can said there use an each which she do how their if will up other about out many then them these so some her would make like him into time has look two more write go see number no way could people my than first water been call who oil its now find long down day did get come made may part",
+      "common_words_medium":"over new sound take only little work know place year live me back give most very after thing our just name good sentence man think say great where help through much before line right too mean old any same tell boy follow came want show also around form three small set put end doe another well large must big even such because turn here why ask went men read need land different home us move try kind hand picture again change off play spell air away animal house point page letter mother answer found study still learn should america world"
+  }
+}
