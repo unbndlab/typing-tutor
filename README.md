@@ -41,9 +41,8 @@ This repository contains the source code featured in the [YouTube Tutorial](http
         ```bash
         cd ~
         git clone https://github.com/unbndlab/YOUR_REPO_NAME.git
-        cd YOUR_REPO_NAME
+        cd typing-tutor
         ```
-        *(Replace `YOUR_REPO_NAME` with the actual name you chose, e.g., `termux-typing-tutor`)*
 
 2.  **Install Termux Packages:**
     ```bash
@@ -76,7 +75,7 @@ This repository contains the source code featured in the [YouTube Tutorial](http
         ```
 
 4.  **Configure Environment:**
-    *   Navigate to the project directory: `cd ~/YOUR_REPO_NAME`
+    *   Navigate to the project directory: `cd ~/typing-tutor`
     *   Copy the example environment file:
         ```bash
         cp .env.example .env
@@ -85,7 +84,7 @@ This repository contains the source code featured in the [YouTube Tutorial](http
     *   Fill in your actual MariaDB database name, username, and password that you created in the previous step. **Do not commit your `.env` file to Git!** (The included `.gitignore` prevents this).
 
 5.  **Install Node.js Dependencies:**
-    *   Make sure you are in the project directory (`~/YOUR_REPO_NAME`).
+    *   Make sure you are in the project directory (`~/typing-tutor`).
     *   Run:
         ```bash
         npm install
@@ -108,7 +107,7 @@ This repository contains the source code featured in the [YouTube Tutorial](http
     ```
 
 2.  **Start the Node.js Server:**
-    *   Navigate to the project directory: `cd ~/YOUR_REPO_NAME`
+    *   Navigate to the project directory: `cd ~/typing-tutor`
     *   Run:
         ```bash
         npm run dev
@@ -122,20 +121,47 @@ This repository contains the source code featured in the [YouTube Tutorial](http
     *   Go to the address: `http://localhost:3000`
 
 ## Project Structure
+<!--
+<pre>
 typing-tutor/
 ├── public/ # Frontend files (HTML, CSS, JS, sounds)
-├── server/ # Backend files (Node.js/Express)
-│ ├── server.js # Main Express app
-│ ├── db.js # Database connection
-│ ├── routes/ # API route handlers
-│ └── scripts/ # Utility scripts (DB setup)
-├── content.json # Lesson/test definitions
-├── .env # Local environment variables (DB secrets) - DO NOT COMMIT
-├── .env.example # Example environment file
-├── .gitignore # Files ignored by Git (node_modules, .env)
-├── package.json # Node.js project dependencies & scripts
+├── server/ # *Backend files (Node.js/Express)*
+│ ├── server.js # *Main Express app*
+│ ├── db.js # *Database connection*
+│ ├── routes/ # *API route handlers*
+│ └── scripts/ # *Utility scripts (DB setup)*
+├── content.json # *Lesson/test definitions*
+├── .env # *Local environment variables (DB secrets)*
+├── .env.example # *Example environment file*
+├── .gitignore # *Files ignored by Git (node_modules, .env)*
+├── package.json # *Node.js project dependencies & scripts*
 └── README.md # This file
-
+</pre>
+-->
+```
+typing-tutor/
+├── public/             # Frontend files
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   └── sounds/
+│       ├── keypress.wav
+│       └── error.wav
+├── server/             # Backend files
+│   ├── server.js       # Main Express app
+│   ├── db.js           # Database connection logic
+│   ├── routes/
+│   │   ├── content.js  # Routes for lessons/tests
+│   │   └── results.js  # Routes for saving/fetching results
+│   └── scripts/
+│       └── populate_db.js # Script to load content into DB
+├── content.json        # Lesson/test definitions
+├── .env                # Environment variables (DB credentials, port)
+├── .env.example      # Example environment file
+├── .gitignore     # Files ignored by Git (node_modules, .env)
+└── package.json        # Node.js project config
+└── README.md # This file
+```
 ## Contributing
 
 This project is primarily for a tutorial demonstration. Feel free to fork and modify for your own use. Pull requests for bug fixes or small improvements might be considered.
