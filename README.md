@@ -1,6 +1,6 @@
 # typing-tutor
 
-![Screenshot Placeholder](link_to_screenshot.png) <!-- Optional: Replace with a link to an actual screenshot later -->
+![Screenshot](https://github.com/user-attachments/assets/4931d81e-9164-4199-a690-4a3b739c3a84) <!-- Optional: Replace with a link to an actual screenshot later -->
 
 A comprehensive typing tutor application designed to run locally on Android using Termux. Built with Node.js, Express, MariaDB, and Vanilla JavaScript.
 
